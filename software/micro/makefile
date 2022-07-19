@@ -1,44 +1,41 @@
-.PHONY: all clean flash
-
-CC = avr-gcc
-OBJCOPY = avr-objcopy
-MCU = atmega328p
-F_CPU = 16000000UL
-
-# Grabador.
-AVRDUDE = avrdude
+.PHONY: default compile flash clean
 
 PORT = /dev/ttyACM0
 BAUD = 115200
 PROTOCOL = arduino
-PART = ATMEGA328P
+DEVICE = atmega328p
 
-# Variables generales.
-AVRDUDEFLAGS = -F -V -c ${PROTOCOL} -p ${PART} -P ${PORT} -b ${BAUD}
-CFLAGS += -g
-CPPFLAGS += -DF_CPU=${F_CPU}
-TARGET_ARCH = -mmcu=${MCU}
-COPTFLAG = -Os
-CFLAGS += ${COPTFLAG}
-WFLAGS += -Wall -Wextra
-CFLAGS += ${WFLAGS}
-LDFLAGS += ${WFLAGS}
-ASFLAGS += ${WFLAGS}
+CC = gcc
+OBJCOPY = avr-objcopy
+SIZE = avr-size
+DUDE = avrdude
+AVRDUDEFLAGS = -F -V -c ${PROTOCOL} -p ${DEVICE} -P ${PORT} -b ${BAUD}
+COMPILE = avr-gcc -Wall -Os -I$(INCDIR) -mmcu=$(DEVICE) -DF_CPU=16000000
 
-# archivos .c
-SRC = main.c UART_utils.c
-OBJ = $(SRC_C:.c=.o) 
-#$(SRC_s:.s=.o) $(SRC_S:.S=.o)
+BUILDDIR = build
+SOURCE = src
+INCDIR = inc
 
-all: main main.hex
+TARGET = blink
+OBJ = $(addprefix $(BUILDDIR)/,$(notdir $(SOURCE:.c=.o)))
 
-${PROG}: ${OBJ}
+default: compile flash clean
 
-%.hex: %
-	${OBJCOPY} -O ihex -R .eeprom $< $@
+compile:
+	$(OBJCOPY) -j .text -j .data -O ihex $(TARGET).elf $(TARGET).hex
+	$(SIZE) --format=avr --mcu=$(DEVICE) $(TARGET).elf
+
+flash:
+	${DUDE} ${AVRDUDEFLAGS} -U flash:w:$(TARGET).hex
+
+$(BUILDDIR)/%.o: $(SOURCE)/%.c
+	$(COMPILE) -c -Wall -std=c99 $< -o $@
+
+$(BUILDDIR)/$(TARGET).elf: $(OBJ)
+	$(COMPILE) -o $(BUILDDIR)/$(TARGET).elf $(OBJ) -lm 
 
 clean:
-	rm -f ${PROG} $(addprefix ${PROG}, .elf .hex) ${OBJ}
-
-flash: ${PROG}.hex
-	${AVRDUDE} ${AVRDUDEFLAGS} -U flash:w:$<
+	rm -f $(TARGET).hex 
+	rm -f $(BUILDDIR)/*.o 
+#rm -f $(BUILDDIR)/*.d 
+	rm -f $(BUILDDIR)/*.elf

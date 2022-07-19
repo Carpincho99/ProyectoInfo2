@@ -1,13 +1,15 @@
+#include <stdint.h>
 #include "mainIncludes.h"
 
 void UART_init(void) {
-#if BAUD_RATE < 57600
-  uint16_t ubrr = ((F_CPU / (8L * BAUD_RATE)) - 1) / 2;
-  UCSR0A &= ~(1 << U2X0);  // baud doubler off
-#else
-  uint16_t ubrr = ((F_CPU / (4L * BAUD_RATE)) - 1) / 2;
-  UCSR0A |= (1 << U2X0);  // baud doubler on
-#endif
+  // #if BAUD_RATE < 57600
+  //   uint16_t ubrr = ((F_CPU / (8L * BAUD_RATE)) - 1) / 2;
+  //   UCSR0A &= ~(1 << U2X0);  // baud doubler off
+  // #else
+  //   uint16_t ubrr = ((F_CPU / (4L * BAUD_RATE)) - 1) / 2;
+  //   UCSR0A |= (1 << U2X0);  // baud doubler on
+  // #endif
+  uint16_t ubrr = 8;
   UBRR0H = (ubrr >> 8) & 0xFF; /* Byte más significativo */
   UBRR0L = ubrr & 0xFF;        /* Byte menos significativo */
 
