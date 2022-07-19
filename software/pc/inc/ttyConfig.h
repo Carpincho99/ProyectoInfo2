@@ -1,6 +1,5 @@
-#include <fcntl.h>
-#include <termio.h>
-
-struct termios tty;
-
-int ttySet(int fd, int baudrate, struct termios* tty);
+#ifndef ttyConfig
+#define ttyConfig
+int ttySet(int fd, int baudrate);
+int openTty(void);
+#endif

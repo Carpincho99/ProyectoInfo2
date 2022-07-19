@@ -1,0 +1,22 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-c",
+      "-g",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-DF_CPU=16000000UL",
+      "-Wall",
+      "-Wextra",
+      "-mmcu=atmega328p",
+      "-o",
+      "main",
+      "main.c"
+    ],
+    "directory": "/home/eg/Documents/UTN/2022/proyectoFinalInfo2/software/micro",
+    "file": "/home/eg/Documents/UTN/2022/proyectoFinalInfo2/software/micro/main.c",
+    "output": "/home/eg/Documents/UTN/2022/proyectoFinalInfo2/software/micro/main"
+  }
+]
