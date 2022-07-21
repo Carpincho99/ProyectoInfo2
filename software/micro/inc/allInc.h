@@ -15,4 +15,6 @@
 
 #include "UART_utils.h"
 #include "config.h"
+#include "gcode.h"
+#include "stepper.h"
 #endif

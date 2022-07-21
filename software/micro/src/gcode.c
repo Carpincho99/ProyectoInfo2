@@ -1,13 +1,4 @@
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
 #include "../inc/allInc.h"
-
-typedef struct gcLine {
-  uint8_t command;
-  uint8_t xyz[3];
-  float f;  // feadrate
-} gcLine;
 
 float readNum(const char* line, uint8_t* n) {
   float value;
@@ -21,7 +12,7 @@ float readNum(const char* line, uint8_t* n) {
   return value;
 }
 
-uint8_t gcExec(gcLine gcComand){
+uint8_t gcExec(gcLine gcComand) {
   return 0;
 }
 
@@ -48,25 +39,30 @@ uint8_t parse(const char* line) {
     switch (letter) {
       case 'G':
         switch (value) {
+          case 0:
+          case 1:
+            gcComand.mode = MOTION_MODE_LINEAR;
+            break;
           default:
-            return 1;  //comando G no reconocido
+            return 1;  // comando G no reconocido
             break;
         }
         break;
       case 'X':
-        gcComand.xyz[0] = value;
+        gcComand.xyzServo[0] = value;
         break;
       case 'Y':
-        gcComand.xyz[1] = value;
+        gcComand.xyzServo[1] = value;
         break;
       case 'Z':
-        gcComand.xyz[2] = value;
+        gcComand.xyzServo[2] = value;
+        break;
+      case 'S':
+        gcComand.xyzServo[3] = value;
         break;
       default:
         return 1;  // Comando no reconocido
     }
-
-    gcExec(gcComand);
   }
 
   return 0;  // OK
