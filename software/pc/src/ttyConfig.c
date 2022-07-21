@@ -1,4 +1,5 @@
 #include "../inc/mainIncludes.h"
+#define DEBUG
 
 int openTty(void) {
   int fd = open(PORT, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
@@ -86,3 +87,14 @@ int ttySet(int fd, int baudrate) {
 
   return 0;
 }
+
+#ifdef DEBUG
+int main(void) {
+  int fd;
+  fd = openTty();
+
+  ttySet(fd, 115200);
+  return 0;
+}
+
+#endif /* DEBUG */

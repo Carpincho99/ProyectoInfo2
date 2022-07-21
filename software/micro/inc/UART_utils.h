@@ -1,4 +1,3 @@
-#include <stdint.h>
 #ifndef UART_utils
 #define UART_utils
 
