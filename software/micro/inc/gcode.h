@@ -9,6 +9,6 @@ typedef struct gcLine {
 
 float readNum(const char*, uint8_t*);
 uint8_t gcExec(gcLine);
-uint8_t parse(const char*);
+uint8_t parse(char*);
 
 #endif

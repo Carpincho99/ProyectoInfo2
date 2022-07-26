@@ -17,4 +17,5 @@
 #include "config.h"
 #include "gcode.h"
 #include "stepper.h"
+#include "uC_map.h"
 #endif

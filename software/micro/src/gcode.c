@@ -1,5 +1,15 @@
 #include "../inc/allInc.h"
 
+char* remove_white_spaces(char* str) {
+  int i = 0, j = 0;
+  while (str[i]) {
+    if (str[i] != ' ') str[j++] = str[i];
+    i++;
+  }
+  str[j] = '\0';
+  return str;
+}
+
 float readNum(const char* line, uint8_t* n) {
   float value;
   uint8_t counter = 0;
@@ -12,13 +22,11 @@ float readNum(const char* line, uint8_t* n) {
   return value;
 }
 
-uint8_t gcExec(gcLine gcComand) {
-  return 0;
-}
-
-uint8_t parse(const char* line) {
+uint8_t parse(char* line) {
   gcLine gcComand = {0};
   uint8_t n = 0;
+
+  line = remove_white_spaces(line);
 
   while (line[n] != 0) {
     char letter;
