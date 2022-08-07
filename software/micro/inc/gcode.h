@@ -1,5 +1,6 @@
 #ifndef gcode
 #define gcode
+#include <stdint.h>
 
 typedef struct gcLine {
   uint8_t mode;
@@ -8,7 +9,7 @@ typedef struct gcLine {
 } gcLine;
 
 float readNum(const char*, uint8_t*);
-uint8_t gcExec(gcLine);
-uint8_t parse(char*);
+uint8_t gcExec(const gcLine*);
+uint8_t parse(char*, gcLine*);
 
 #endif

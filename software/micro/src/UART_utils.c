@@ -21,7 +21,7 @@ void UART_init(void) {
 }
 
 void UART_putc(unsigned char data) {
-  // wait for transmit buffer to be empty
+  // esperar buffer vacio
   while (!(UCSR0A & _BV(UDRE0)))
     ;
 
@@ -32,24 +32,26 @@ void UART_puts(char* s) {
   while (*s > 0) UART_putc(*s++);
 }
 
-unsigned char UART_getc(void) {
-  // wait for data
-  while (!(UCSR0A & (1 << RXC0)))
+char UART_getc(void) {
+  // esperar data
+  while (!(UCSR0A & _BV(RXC0)))
     ;
 
   // return data
   return UDR0;
 }
 
-char* UART_gets(char* buf, uint8_t n) {
+void UART_gets(char* buf) {
+  // UART_puts("Entro al gets\n");
   uint8_t bufIdx = 0;
   char c;
 
   do {
+    // UART_puts("Bucle getc\n");
     c = UART_getc();
     buf[bufIdx++] = c;
-  } while ((bufIdx < n) && (c != '\r'));
+  } while (!(c == '\n' || c == '\r'));
 
   buf[bufIdx] = 0;
-  return buf;
+  // UART_puts("End gets");
 }

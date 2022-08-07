@@ -22,8 +22,7 @@ float readNum(const char* line, uint8_t* n) {
   return value;
 }
 
-uint8_t parse(char* line) {
-  gcLine gcComand = {0};
+uint8_t parse(char* line, gcLine *gcComand) {
   uint8_t n = 0;
 
   line = remove_white_spaces(line);
@@ -49,7 +48,7 @@ uint8_t parse(char* line) {
         switch (value) {
           case 0:
           case 1:
-            gcComand.mode = MOTION_MODE_LINEAR;
+            gcComand->mode = MOTION_MODE_LINEAR;
             break;
           default:
             return 1;  // comando G no reconocido
@@ -57,16 +56,16 @@ uint8_t parse(char* line) {
         }
         break;
       case 'X':
-        gcComand.xyzServo[0] = value;
+        gcComand->xyzServo[0] = value;
         break;
       case 'Y':
-        gcComand.xyzServo[1] = value;
+        gcComand->xyzServo[1] = value;
         break;
       case 'Z':
-        gcComand.xyzServo[2] = value;
+        gcComand->xyzServo[2] = value;
         break;
       case 'S':
-        gcComand.xyzServo[3] = value;
+        gcComand->xyzServo[3] = value;
         break;
       default:
         return 1;  // Comando no reconocido
