@@ -1,13 +1,17 @@
+#include <stdint.h>
+#include <stdlib.h>
 #include "../inc/allInc.h"
 
 int main(void) {
   SetInOut();
   UART_init();
-  UART_puts("UART ready\n");
+  UART_puts("OK\n");
 
-  char* buf = "";
   gcLine gcComand = {0};
-  while (1) {
+  for (;;) {
+
+    char* buf;
+    buf = (char*)calloc(80, 8);
     UART_puts("Waiting for command...\n");
     UART_gets(buf);
     UART_puts("command recived\n");

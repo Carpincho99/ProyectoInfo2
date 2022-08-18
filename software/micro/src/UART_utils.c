@@ -1,3 +1,4 @@
+#include <avr/sfr_defs.h>
 #include <math.h>
 #include <stdint.h>
 #include "../inc/allInc.h"
@@ -14,14 +15,13 @@ void UART_init(void) {
   UBRR0L = UBRR0_value;
 
   // enable rx and tx
-  UCSR0B |= 1 << RXEN0;
-  UCSR0B |= 1 << TXEN0;
+  UCSR0B |= _BV(RXEN0);
+  UCSR0B |= _BV(TXEN0);
   UCSR0C = _BV(UCSZ00) | _BV(UCSZ01); /* UART con trama 8N1 */
-  UCSR0B |= _BV(RXEN0);               /* Habilita el receptor */
 }
 
-void UART_putc(unsigned char data) {
-  // esperar buffer vacio
+void UART_putc(uint8_t data) {
+  // wait empty buffer
   while (!(UCSR0A & _BV(UDRE0)))
     ;
 
@@ -29,11 +29,11 @@ void UART_putc(unsigned char data) {
 }
 
 void UART_puts(char* s) {
-  while (*s > 0) UART_putc(*s++);
+  while (*s != 0) UART_putc(*s++);
 }
 
 char UART_getc(void) {
-  // esperar data
+  // wait data
   while (!(UCSR0A & _BV(RXC0)))
     ;
 
@@ -42,16 +42,13 @@ char UART_getc(void) {
 }
 
 void UART_gets(char* buf) {
-  // UART_puts("Entro al gets\n");
-  uint8_t bufIdx = 0;
+  uint8_t i = 0;
   char c;
 
   do {
-    // UART_puts("Bucle getc\n");
     c = UART_getc();
-    buf[bufIdx++] = c;
-  } while (!(c == '\n' || c == '\r'));
+    buf[i++] = c;
+  } while (c != '\n');
 
-  buf[bufIdx] = 0;
-  // UART_puts("End gets");
+  buf[i] = 0;
 }

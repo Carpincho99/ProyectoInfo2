@@ -12,10 +12,12 @@ char* remove_white_spaces(char* str) {
 
 float readNum(const char* line, uint8_t* n) {
   float value;
+  float tmp;
   uint8_t counter = 0;
   value = atof(&line[*n]);
-  while (value != 0) {
-    value = value / 10;
+  tmp = value;
+  while (tmp != 0) {
+    tmp = tmp / 10;
     counter++;
   }
   *n += counter;
