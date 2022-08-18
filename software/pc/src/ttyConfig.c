@@ -1,5 +1,5 @@
 #include "../inc/mainIncludes.h"
-#define DEBUG
+//#define DEBUG
 
 int openTty(void) {
   int fd = open(PORT, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
