@@ -1,0 +1,153 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[spanish]{babel}
+
+\def\mydate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lastpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage{authblk}
+\usepackage{bookmark}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{mathpazo} % Palatino font
+
+\makeatletter
+\newcommand{\subtitledoc}[1]{\newcommand{\@subtitledoc}{#1}}
+\newcommand{\instituto}[1]{\newcommand{\@instituto}{#1}}
+\newcommand{\carrera}[1]{\newcommand{\@carrera}{#1}}
+\newcommand{\professor}[1]{\newcommand{\@professor}{#1}}
+\newcommand{\catedra}[1]{\newcommand{\@catedra}{#1}}
+\newcommand{\curso}[1]{\newcommand{\@curso}{#1}}
+\newcommand{\legajo}[1]{\newcommand{\@legajo}{#1}}
+\newcommand{\footerauthor}[1]{\newcommand{\@footerauthor}{#1}}
+\newcommand{\footerlegajo}[1]{\newcommand{\@footerlegajo}{#1}}
+\newcommand{\footercatedra}[1]{\newcommand{\@footercatedra}{#1}}
+
+%Configuracion de hoja (margenes y tamaño)
+\geometry{a4paper,margin=1in}
+\setlength\headheight{28pt}
+
+%Metadata para pdf
+%\hypersetup{
+%    pdftitle={\@title},
+%    pdfsubject={\@catedra\ - \@subtitledoc},
+%    pdfauthor={\@author\ - \@legajo\ - \@curso},
+%    pdfkeywords={\@title\ \@catedra\ \@subtitledoc\ \@author\ \@legajo\ \@curso}
+%}
+
+%formato de encabezado y pie para todas las paginas.
+\fancyhead[L]{
+  \begin{minipage}[b]{7.5mm}
+    \includegraphics[width=7mm]{../imagenes/COPYlogo-utn.eps}
+  \end{minipage}
+  \begin{minipage}[b]{85mm}
+    \textbf{Alumnos: }\@footerauthor\\
+    \textbf{Legajos: }\@footerlegajo
+  \end{minipage}
+}
+\fancyhead[R]{
+  %\textbf{Comisión:} \@curso 
+  \textbf{Fecha:} \mydate \\
+  \textbf{Cátedra:} \@footercatedra \text{ (}\@curso\text{)}
+}
+\fancyfoot[C]{} %eliminar antiguo numero de pagina
+\fancyfoot[R]{Página \thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\pagestyle{fancy}
+
+\addto\captionsspanish{%
+  \renewcommand{\contentsname}%
+  {CONTENIDO}%
+}
+
+\renewcommand{\maketitle}{%
+  \newpage
+  \thispagestyle{empty}
+
+  \begin{center}
+
+    \textsc{\LARGE \@instituto}\\[0.5cm] 
+    \textsc{\Large \@carrera}\\[1cm] 
+    \includegraphics[width=0.30\textwidth]{../imagenes/COPYlogo-utn.eps} \par
+    \vspace{1cm}
+
+    \textsc{\Large \@catedra}\\[1.5cm]
+
+    \hrule\\[0.5cm]
+    {\huge\bfseries \@title}\\[0.4cm]
+    \textsc{\large \@subtitledoc}\\[0.5cm]
+    \hrule\\
+
+
+  \end{center}
+
+  \vspace{2cm}
+
+  {\noindent
+    \begin{minipage}[t]{.2\textwidth}
+      \raggedright
+      \textbf{DOCENTES} \par
+      ~\\
+      ~\\
+      %\textbf{CÁTEDRA} \par
+      \medskip
+      \medskip
+      \textbf{COMISIÓN} \par
+      \medskip
+      \medskip
+      \textbf{ALUMNOS} \par
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+      \raggedright
+      %\textbf{:} \par
+      %~\\
+      %~\\
+      %\textbf{:} \par
+      %\textbf{:} \par
+      %\medskip
+      %\medskip
+      %\textbf{:} \par
+    \end{minipage}%
+    \begin{minipage}[t]{.55\textwidth}
+      \raggedright
+      \@professor. \par
+      \medskip
+      %\@catedra. \par
+      \medskip
+      \@curso \par
+      \medskip
+      \medskip
+      \@author \par
+    \end{minipage}%
+    \begin{minipage}[t]{.15\textwidth}
+      \raggedright
+      ~\\
+      ~\\
+      ~\\
+      ~\\
+      \medskip
+      % \medskip
+      \medskip
+      \medskip
+      \medskip
+      \@legajo \par
+    \end{minipage}
+  }
+  \vfill
+  \begin{center}
+    {\Large\textbf{Córdoba, \@date}} \\
+    %\medskip
+    %\textbf{Córdoba, Argentina} \par
+  \end{center}
+  \newpage
+}
+
+\makeatother
