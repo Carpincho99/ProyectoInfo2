@@ -1,5 +1,5 @@
 build/
-.json
-.o
-.elf
-/.cache
+*.json
+*.o
+*.elf
+.cache/
