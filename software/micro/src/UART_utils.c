@@ -55,24 +55,31 @@ void UART_gets(char* buf) {
 }
 
 
-// uint8_t rxBuf[RX_BUF_SIZE];
-// uint8_t rxBufPos;
-//
-// uint8_t* UART_gets(char* buf) {
-//   return rxBuf;
-// }
-//
-//
-// ISR(SERIAL_RX){
-//   uint8_t data = UDR0;
-//   uint8_t nextPos;
-//   
-//   switch (data) {
-//     default: // Escribir caracter en el buffer    
-//       nextPos = rxBufPos + 1;
-//       if (nextPos == RX_BUF_SIZE) { nextPos = 0; }
-//
-//       rxBuf[rxBufPos] = data;
-//       rxBufPos = nextPos;  
-//   }
-// }
+char rxBuf[RX_BUF_SIZE]={0};
+uint8_t rxBufPos = 0;
+
+char* UART_rxBuf() {
+  for (int i = 0; i < RX_BUF_SIZE; i++) {
+    if(rxBuf[i]!=0)
+    UART_putc(rxBuf[i]);
+  }
+  return 0;
+}
+
+
+ISR(USART_RX_vect){
+  uint8_t data = UDR0-(250-122);
+  UART_putc(data);
+ //  uint8_t nextPos;
+ // 
+ //  switch (data) {
+ //    default: // Escribir caracter en el buffer   
+ //      nextPos = rxBufPos + 1;
+ //      if (nextPos == RX_BUF_SIZE) { nextPos = 0; }
+ //
+ //      rxBuf[rxBufPos] = data;
+ //      rxBufPos = nextPos; 
+ //  }
+ //
+ //  UART_rxBuf();
+}
