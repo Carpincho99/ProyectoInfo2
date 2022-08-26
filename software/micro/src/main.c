@@ -7,13 +7,12 @@ int main(void) {
   SetInOut();
   UART_init();
   UART_puts("OK\n");
-  UCSR0B |= _BV(RXCIE0);
-  sei();
-
-  // gcLine gcComand = {0};
-  // line =(char*) malloc(80*sizeof(char));
-
-  for (;;) {
+  char c[80];
+  for(;;){
+    UART_gets(c);
+    UART_puts(c);
+    
   }
+
   return 0;
 }
