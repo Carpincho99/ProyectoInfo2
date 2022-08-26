@@ -7,11 +7,14 @@ int main(void) {
   SetInOut();
   UART_init();
   UART_puts("OK\n");
-  char c[80];
+  char line[80];
+  char c[10];
+  gcLine gcCommand = {0};
   for(;;){
-    UART_gets(c);
+    UART_gets(line);
+    parse(line, &gcCommand);
+    itoa(gcCommand.mode+1, c, 10);
     UART_puts(c);
-    
   }
 
   return 0;

@@ -1,3 +1,5 @@
+#include <stdint.h>
+#include <stdlib.h>
 #include "../inc/allInc.h"
 
 char* remove_white_spaces(char* str) {
@@ -9,18 +11,34 @@ char* remove_white_spaces(char* str) {
   str[j] = '\0';
   return str;
 }
-
+//
+// float readNum(const char* line, uint8_t* n) {
+//   float value;
+//   float tmp;
+//   uint8_t counter = 0;
+//   value = atof(&line[*n]);
+//   tmp = value;
+//   while (tmp != 0) {
+//     tmp = tmp / 10;
+//     counter++;
+//   }
+//   *n += counter;
+//   return value;
+// }
 float readNum(const char* line, uint8_t* n) {
+  uint8_t i = 0;
   float value;
-  float tmp;
-  uint8_t counter = 0;
-  value = atof(&line[*n]);
-  tmp = value;
-  while (tmp != 0) {
-    tmp = tmp / 10;
-    counter++;
+  char* valueStr;
+
+  valueStr = (char*) calloc(10, sizeof(char));
+  
+  while(line[*n] >= '0' && line[*n] <= '9'){
+    valueStr[i] = line[*n];
+    (*n)++;
+    i++;
   }
-  *n += counter;
+  value = atof(valueStr);
+
   return value;
 }
 
@@ -54,7 +72,6 @@ uint8_t parse(char* line, gcLine *gcComand) {
             break;
           default:
             return 1;  // comando G no reconocido
-            break;
         }
         break;
       case 'X':
