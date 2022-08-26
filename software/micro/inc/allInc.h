@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 // #include <stdbool.h>
 
 #include "UART_utils.h"

@@ -2,9 +2,7 @@
 
 // settings NO MODIFICABLES POR USUARIO
 #define MAX_GC_DIGITIS 8
-// #ifndef F_CPU
-// #define F_CF_CPU 16000000UL
-// #endif
-//
+#define RX_BUF_SIZE 128 //Provisional
+
 // gcode referencias comandos
 #define MOTION_MODE_LINEAR 0;
