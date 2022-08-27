@@ -2,6 +2,6 @@
 #define stepper
 #include <stdint.h>
 
-void moveAxis(uint8_t, int);
+void moveAxis(uint8_t, uint8_t);
 
 #endif

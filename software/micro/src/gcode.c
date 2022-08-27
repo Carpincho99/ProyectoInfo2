@@ -11,20 +11,7 @@ char* remove_white_spaces(char* str) {
   str[j] = '\0';
   return str;
 }
-//
-// float readNum(const char* line, uint8_t* n) {
-//   float value;
-//   float tmp;
-//   uint8_t counter = 0;
-//   value = atof(&line[*n]);
-//   tmp = value;
-//   while (tmp != 0) {
-//     tmp = tmp / 10;
-//     counter++;
-//   }
-//   *n += counter;
-//   return value;
-// }
+
 float readNum(const char* line, uint8_t* n) {
   uint8_t i = 0;
   float value;
@@ -59,9 +46,9 @@ uint8_t parse(char* line, gcLine *gcComand) {
 
     if (line[n] != '-' && line[n] != '+' && (line[n] < '0' || line[n] > '9'))
       return 1;  // Se esperaba un numero
+
     value = readNum(line, &n);
 
-    n++;
 
     switch (letter) {
       case 'G':
