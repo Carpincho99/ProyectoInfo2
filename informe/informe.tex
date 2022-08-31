@@ -1,6 +1,15 @@
 \input{inc/estructura.tex}
+\usepackage{listings}
 \usepackage{amsmath}
 \usepackage[nottoc,numbib]{tocbibind}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \instituto{Universidad Tecnológica Nacional\\Facultad Regional Córdoba}
 \carrera{Ingeniería Electrónica}
@@ -27,13 +36,29 @@
   \section{Desarrollo}
   \subsection{Descripción general} % Fotos del equipo
   \subsection{Hardware} % Diagrama de bloques?
-  \subsection{Software}
+  \subsection{Software Microcontrolador}
+  \subsubsection{Estructura de archivos}
+  \subsubsection{Make}
+  \subsubsection{Directivas de preprocesador}
+  \subsubsection{Función Main}
+  \subsubsection{UART}
+  \subsubsection{Gcode}
+  \subsubsection{Control de motores}
+  \subsubsection{Control de servo}
+  \subsection{Software PC}
   \section{Conclusiones}
+  \subsubsection{Estructura de archivos}
+  \subsubsection{Make}
+  \subsubsection{GUI}
+  \subsubsection{Directivas de preprocesador}
+  \subsubsection{Función Main}
+  \subsubsection{Comunicación Serial}
 
   \nocite{atmega328Datasheet}
   \nocite{bjarneC++}
   \nocite{deitel}
   \nocite{make}
+  \nocite{CProgramingMicro}
   \bibliography{inc/bibliografia}{}
   \bibliographystyle{plain}
 
