@@ -1,7 +1,8 @@
 #ifndef stepper
 #define stepper
 #include <stdint.h>
+#include "gcode.h"
 
-void moveAxis(uint8_t, uint8_t);
+void execLine(gcLine*);
 
 #endif

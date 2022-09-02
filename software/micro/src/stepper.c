@@ -1,19 +1,28 @@
+#include <avr/sfr_defs.h>
+#include <stdint.h>
+#include <util/delay.h>
 #include "../inc/allInc.h"
 
-void moveAxis(uint8_t axis, uint8_t steps) {
-  // uint8_t axies[4] = {X_STEP_PIN, Y_STEP_PIN, Z_STEP_PIN, S_PIN};
-  // uint8_t axiesENB[4] = {XENB, YENB, ZENB, S_PIN};
-  // uint8_t axiesDIR[4] = {X_DIR_PIN, Y_DIR_PIN, Z_DIR_PIN, S_PIN};
+#define msSteps 20
 
-  // axiesENB[axis] |= _BV();
+void doStep(const uint8_t* axisPin) {
+  uint8_t stepPatron[4][4] = {
+    {1,1,0,0},
+    {0,1,1,0},
+    {0,0,1,1},
+    {1,0,0,1},
+  };
+    for (uint8_t i = 0; i <= 3; i++) {
+      _delay_ms(msSteps);
+    }
+}
 
-  PORTD &= ~_BV(PORTD6); /* Enciende LED */
-  for (int i = 0; i < steps; i++) {
-    PORTB |= _BV(PORTB5); /* Enciende LED */
-    PORTD |= _BV(PORTD6); /* Enciende LED */
-    _delay_ms(500);
-    PORTB &= ~_BV(PORTB5); /* Enciende LED */
-    PORTD &= ~_BV(PORTD6); /* Enciende LED */
-    _delay_ms(500);
+void execLine(gcLine* gcCommand) {
+  uint8_t xAxisPin[4] = {X_IN1, X_IN2, X_IN3, X_IN4};
+  // uint8_t yAxisPin[4] = {Y_IN1, Y_IN2, Y_IN3, Y_IN4};
+  // uint8_t zAxisPin[4] = {Z_IN1, Z_IN2, Z_IN3, Z_IN4};
+
+  while (1) {
+    doStep(xAxisPin);
   }
 }

@@ -4,8 +4,7 @@
 
 typedef struct gcLine {
   uint8_t mode;
-  uint8_t xyzServo[4];
-  float f;  // feadrate
+  int xyzServo[4];
 } gcLine;
 
 float readNum(const char*, uint8_t*);

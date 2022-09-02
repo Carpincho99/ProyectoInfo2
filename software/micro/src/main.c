@@ -15,7 +15,7 @@ int main(void) {
   for(;;){
     UART_gets(line);
     parse(line, &gcCommand);
-    moveAxis(1, gcCommand.xyzServo[0]) ;
+    execLine(&gcCommand);
   }
 
   return 0;

@@ -19,14 +19,14 @@ float readNum(const char* line, uint8_t* n) {
 
   valueStr = (char*) calloc(10, sizeof(char));
   
-  while(line[*n] >= '0' && line[*n] <= '9'){
+  while(line[*n] == '-' || line[*n] == '+' || (line[*n] >= '0' && line[*n] <= '9')){
     valueStr[i] = line[*n];
     (*n)++;
     i++;
   }
   value = atof(valueStr);
 
-  return value;
+  return (int)value;
 }
 
 uint8_t parse(char* line, gcLine *gcComand) {
