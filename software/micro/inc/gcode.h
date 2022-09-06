@@ -7,7 +7,7 @@ typedef struct gcLine {
   int xyzServo[4];
 } gcLine;
 
-float readNum(const char*, uint8_t*);
+int readNum(const char*, uint8_t*);
 uint8_t gcExec(const gcLine*);
 uint8_t parse(char*, gcLine*);
 char* remove_white_spaces(char*);

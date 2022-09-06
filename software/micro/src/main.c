@@ -10,7 +10,7 @@ int main(void) {
   UART_puts("OK\n");
   char line[80];
   gcLine gcCommand = {0};
-  // gcLine gcStatus = {0};
+  // gcLine actualPos = {0};
 
   for(;;){
     UART_gets(line);

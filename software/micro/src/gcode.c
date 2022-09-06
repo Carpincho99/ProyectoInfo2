@@ -12,21 +12,27 @@ char* remove_white_spaces(char* str) {
   return str;
 }
 
-float readNum(const char* line, uint8_t* n) {
+int readNum(const char* line, uint8_t* n) {
   uint8_t i = 0;
   float value;
   char* valueStr;
 
   valueStr = (char*) calloc(10, sizeof(char));
   
-  while(line[*n] == '-' || line[*n] == '+' || (line[*n] >= '0' && line[*n] <= '9')){
+  if (line[*n] == '-'|| line[*n] == '+') {
+    valueStr[0] = line[*n];
+    (*n)++;
+    i++;
+  }
+  
+  while((line[*n] >= '0' && line[*n] <= '9')|| line[*n] == '.'){
     valueStr[i] = line[*n];
     (*n)++;
     i++;
   }
-  value = atof(valueStr);
 
-  return (int)value;
+  value = atoi(valueStr);
+  return value;
 }
 
 uint8_t parse(char* line, gcLine *gcComand) {
@@ -36,7 +42,7 @@ uint8_t parse(char* line, gcLine *gcComand) {
 
   while (line[n] != 0) {
     char letter;
-    uint8_t value;
+    int value;
 
     letter = line[n];
 
@@ -55,7 +61,10 @@ uint8_t parse(char* line, gcLine *gcComand) {
         switch (value) {
           case 0:
           case 1:
-            gcComand->mode = MOTION_MODE_LINEAR;
+            gcComand->mode = MOTION_MODE_ABS;
+            break;
+          case 91:
+            gcComand->mode = MOTION_MODE_RELATIVE;
             break;
           default:
             return 1;  // comando G no reconocido

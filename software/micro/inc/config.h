@@ -5,4 +5,5 @@
 #define RX_BUF_SIZE 128 //Provisional
 
 // gcode referencias comandos
-#define MOTION_MODE_LINEAR 0;
+#define MOTION_MODE_ABS 0;
+#define MOTION_MODE_RELATIVE 1;
