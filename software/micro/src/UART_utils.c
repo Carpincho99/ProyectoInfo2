@@ -14,10 +14,9 @@ void UART_init(void) {
   UBRR0H = (uint8_t) UBRR0_value >> 8;
   UBRR0L = (uint8_t) UBRR0_value;
 
-  // tx y rx on
-  UCSR0B |= _BV(RXEN0);
-  UCSR0B |= _BV(TXEN0);
-  UCSR0C = _BV(UCSZ00) | _BV(UCSZ01); /* UART con trama 8N1 */
+  UCSR0B |= _BV(RXEN0); // rx on
+  UCSR0B |= _BV(TXEN0); // tx on
+  UCSR0C = _BV(UCSZ00) | _BV(UCSZ01); // trama 8N1
 }
 
 void UART_putc(uint8_t data) {
@@ -32,11 +31,11 @@ void UART_puts(char* s) {
 }
 
 char UART_getc(void) {
-  // wait data
+  // espera dato
   while (!(UCSR0A & _BV(RXC0)))
     ;
 
-  // return data
+  // return dato
   return UDR0;
 }
 

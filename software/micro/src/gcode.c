@@ -12,10 +12,19 @@ char* remove_white_spaces(char* str) {
   return str;
 }
 
+void strToUpper(char* str){
+  const char Offset = 'a' - 'A';
+  while (*str){
+    *str = (*str >= 'a' && *str <= 'z') ? *str - Offset : *str;
+    str++;
+  }
+}
+
 int readNum(const char* line, uint8_t* n) {
   uint8_t i = 0;
   float value;
   char* valueStr;
+  uint8_t dotflag = 0;
 
   valueStr = (char*) calloc(10, sizeof(char));
   
@@ -26,66 +35,50 @@ int readNum(const char* line, uint8_t* n) {
   }
   
   while((line[*n] >= '0' && line[*n] <= '9')|| line[*n] == '.'){
+
+    if(line[*n] == '.'){
+      if(dotflag == 0){
+        valueStr[i] = line[*n];
+        (*n)++;
+        dotflag++;
+        continue;
+      }else{
+        return 0;
+      }
+    }
+
+      
     valueStr[i] = line[*n];
     (*n)++;
     i++;
   }
 
   value = atoi(valueStr);
-  return value;
+  return (int8_t) value;
 }
 
-uint8_t parse(char* line, gcLine *gcComand) {
+uint8_t parse(char* line, void (*execLine)(uint8_t, int8_t)) {
   uint8_t n = 0;
 
   line = remove_white_spaces(line);
+  strToUpper(line);
 
-  while (line[n] != 0) {
-    char letter;
-    int value;
+  char letter;
+  int value;
 
-    letter = line[n];
+  letter = line[n];
 
-    if ((letter < 'A') || (letter > 'Z')) return 1;  // Se esperaba una letra
+  if ((letter < 'A') || (letter > 'Z')) 
+    return 1;  // Se esperaba una letra
 
-    n++;
+  n++;
 
-    if (line[n] != '-' && line[n] != '+' && (line[n] < '0' || line[n] > '9'))
-      return 1;  // Se esperaba un numero
+  if (line[n] != '-' && line[n] != '+' && (line[n] < '0' || line[n] > '9'))
+    return 1;  // Se esperaba un numero
 
-    value = readNum(line, &n);
+  value = readNum(line, &n);
 
-
-    switch (letter) {
-      case 'G':
-        switch (value) {
-          case 0:
-          case 1:
-            gcComand->mode = MOTION_MODE_ABS;
-            break;
-          case 91:
-            gcComand->mode = MOTION_MODE_RELATIVE;
-            break;
-          default:
-            return 1;  // comando G no reconocido
-        }
-        break;
-      case 'X':
-        gcComand->xyzServo[0] = value;
-        break;
-      case 'Y':
-        gcComand->xyzServo[1] = value;
-        break;
-      case 'Z':
-        gcComand->xyzServo[2] = value;
-        break;
-      case 'S':
-        gcComand->xyzServo[3] = value;
-        break;
-      default:
-        return 1;  // Comando no reconocido
-    }
-  }
+  execLine(letter, value);
 
   return 0;  // OK
 }
