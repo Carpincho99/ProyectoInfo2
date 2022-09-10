@@ -3,15 +3,13 @@
 
 #include <avr/io.h>
 #include <stdint.h>
-// #include <avr/pgmspace.h>
-// #include <avr/interrupt.h>
-// #include <avr/wdt.h>
 #include <inttypes.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <util/delay.h>
-#include <avr/interrupt.h>
+#include <math.h>
+#include <avr/sfr_defs.h>
 // #include <stdbool.h>
 
 #include "UART_utils.h"

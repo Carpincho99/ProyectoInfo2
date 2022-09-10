@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include <stdlib.h>
 #include "../inc/allInc.h"
 
 char* remove_white_spaces(char* str) {
@@ -54,10 +52,10 @@ int readNum(const char* line, uint8_t* n) {
   }
 
   value = atoi(valueStr);
-  return (int8_t) value;
+  return (int16_t) value;
 }
 
-uint8_t parse(char* line, void (*execLine)(uint8_t, int8_t)) {
+uint8_t parse(char* line, void (*execLine)(uint8_t, int16_t)) {
   uint8_t n = 0;
 
   line = remove_white_spaces(line);

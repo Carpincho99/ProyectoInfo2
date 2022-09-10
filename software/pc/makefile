@@ -20,7 +20,7 @@ OBJ_FILES := $(notdir $(OBJS))
 
 #regla de compilacion
 %.o: %.c
-	gcc -Wall -c $< -o $(OBJ_PATH)/$@ -I $(INC_PATH)
+	gcc -Wall --pedantic-errors -std=c99 -c $< -o $(OBJ_PATH)/$@ -I $(INC_PATH)
 
 #regla de linkeo
 $(EJECUTABLE): $(OBJ_FILES)

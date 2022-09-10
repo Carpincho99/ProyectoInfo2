@@ -1,6 +1,6 @@
 #include "../inc/allInc.h"
 
-#define msSteps 6
+#define msSteps 5
 
 void doStepHorario(const uint8_t* axisPin) {
   for (uint8_t i = 0; i <= 3; i++) {
@@ -35,7 +35,7 @@ void doStepAntiHorario(const uint8_t* axisPin) {
   }
 }
 
-void moveAxisRelative(const uint8_t* axisPin, int8_t value) {
+void moveAxisRelative(const uint8_t* axisPin, int16_t value) {
   if (value > 0) {
     while (value) {
       doStepHorario(axisPin);
@@ -49,7 +49,7 @@ void moveAxisRelative(const uint8_t* axisPin, int8_t value) {
   }
 }
 
-void execLine(uint8_t axi, int8_t value) {
+void execLine(uint8_t axi, int16_t value) {
  const uint8_t xAxisPin[4] = {X_IN1, X_IN2, X_IN3, X_IN4};
  const uint8_t yAxisPin[4] = {Y_IN1, Y_IN2, Y_IN3, Y_IN4};
  const uint8_t zAxisPin[4] = {Z_IN1, Z_IN2, Z_IN3, Z_IN4};

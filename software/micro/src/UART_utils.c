@@ -1,6 +1,3 @@
-#include <avr/sfr_defs.h>
-#include <math.h>
-#include <stdint.h>
 #include "../inc/allInc.h"
 
 void UART_init(void) {

@@ -1,8 +1,8 @@
 #include "../inc/mainIncludes.h"
 //#define DEBUG
 
-int openTty(void) {
-  int fd = open(PORT, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
+int openTty(char* puerto) {
+  int fd = open(puerto, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
   if (fd == -1) return -1;
   fcntl(fd, F_SETFL, 0);
   return fd;
