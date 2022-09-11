@@ -22,6 +22,10 @@ int main(void) {
     read(fd, &buf, 8);
     tcdrain(fd);
     printf("[MICRO] %s", buf);
+
+    // if(strcmp(buf, "OK\n"))
+    //   return 1;
+    //
     fgets(buf, 79, stdin);
     tcdrain(fd);
     write(fd, buf, bitsUntilc(buf, '\n'));
