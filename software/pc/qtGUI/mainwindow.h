@@ -18,6 +18,8 @@ public:
 private slots:
     void on_xPositiveButton_clicked();
 
+    void on_xNegativeButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

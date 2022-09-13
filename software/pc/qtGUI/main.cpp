@@ -6,7 +6,7 @@
 #include <QDebug>
 
 
-QSerialPort arduino;
+QSerialPort serial;
 
 int main(int argc, char *argv[])
 {
@@ -28,24 +28,24 @@ int main(int argc, char *argv[])
         }
     }
 
-    arduino.setPortName(arduino_uno_port_name);
-    if(!arduino.setBaudRate(QSerialPort::Baud115200))
-        qDebug() << arduino.errorString();
-    if(!arduino.setDataBits(QSerialPort::Data8))
-        qDebug() << arduino.errorString();
-    if(!arduino.setParity(QSerialPort::NoParity))
-        qDebug() << arduino.errorString();
-    if(!arduino.setStopBits(QSerialPort::OneStop))
-        qDebug() << arduino.errorString();
-    if(!arduino.setFlowControl(QSerialPort::NoFlowControl))
-        qDebug() << arduino.errorString();
-    if(!arduino.open(QIODevice::ReadWrite))
-        qDebug() << arduino.errorString();
+    serial.setPortName(arduino_uno_port_name);
+    if(!serial.setBaudRate(QSerialPort::Baud115200))
+        qDebug() << serial.errorString();
+    if(!serial.setDataBits(QSerialPort::Data8))
+        qDebug() << serial.errorString();
+    if(!serial.setParity(QSerialPort::NoParity))
+        qDebug() << serial.errorString();
+    if(!serial.setStopBits(QSerialPort::OneStop))
+        qDebug() << serial.errorString();
+    if(!serial.setFlowControl(QSerialPort::NoFlowControl))
+        qDebug() << serial.errorString();
+    if(!serial.open(QIODevice::ReadWrite))
+        qDebug() << serial.errorString();
 
-    if(!arduino.waitForReadyRead(-1)) //block until new data arrives
-        qDebug() << "error: " << arduino.errorString();
+    if(!serial.waitForReadyRead(-1)) //block until new data arrives
+        qDebug() << "error: " << serial.errorString();
     else{
-        QByteArray data = arduino.readAll();
+        QByteArray data = serial.readAll();
         qDebug() << data;
     }
 
@@ -55,8 +55,17 @@ int main(int argc, char *argv[])
 
 void MainWindow::on_xPositiveButton_clicked()
 {
-    if(arduino.isWritable()){
-        arduino.write("x-10\n");
+    if(serial.isWritable()){
+        serial.write("x10\n");
     }
 
 }
+
+void MainWindow::on_xNegativeButton_clicked()
+{
+     if(serial.isWritable()){
+        serial.write("x-10\n");
+    }
+}
+
+
