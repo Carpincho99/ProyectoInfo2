@@ -2,66 +2,31 @@
 
 #define msSteps 5
 void primerStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[3]);
-  PORTD &= ~_BV(axisPin[1]);
+  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
   PORTD |= _BV(axisPin[0]);
 }
 
 void segundoStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[0]);
-  PORTD &= ~_BV(axisPin[2]);
+  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
   PORTD |= _BV(axisPin[1]);
 }
 
 void tercerStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[1]);
-  PORTD &= ~_BV(axisPin[3]);
+  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
   PORTD |= _BV(axisPin[2]);
 }
 
 void cuartoStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[2]);
-  PORTD &= ~_BV(axisPin[0]);
+  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
   PORTD |= _BV(axisPin[3]);
 }
 
-// void doStepHorario(const uint8_t* axisPin) {
-//   for (uint8_t i = 0; i <= 3; i++) {
-//     PORTD |= _BV(axisPin[0]);
-//     _delay_ms(msSteps);
-//     PORTD &= ~_BV(axisPin[0]);
-//     PORTD |= _BV(axisPin[1]);
-//     _delay_ms(msSteps);
-//     PORTD &= ~_BV(axisPin[1]);
-//     PORTD |= _BV(axisPin[2]);
-//     _delay_ms(msSteps);
-//     PORTD &= ~_BV(axisPin[2]);
-//     PORTD |= _BV(axisPin[3]);
-//     _delay_ms(msSteps);
-//     PORTD &= ~_BV(axisPin[3]);
-//   }
-// }
-void doStepAntiHorario(const uint8_t* axisPin) {
-  for (uint8_t i = 0; i <= 3; i++) {
-    PORTD |= _BV(axisPin[3]);
-    _delay_ms(msSteps);
-    PORTD &= ~_BV(axisPin[3]);
-    PORTD |= _BV(axisPin[2]);
-    _delay_ms(msSteps);
-    PORTD &= ~_BV(axisPin[2]);
-    PORTD |= _BV(axisPin[1]);
-    _delay_ms(msSteps);
-    PORTD &= ~_BV(axisPin[1]);
-    PORTD |= _BV(axisPin[0]);
-    _delay_ms(msSteps);
-    PORTD &= ~_BV(axisPin[0]);
-  }
-}
-
 void (*doStepHorario[4]) (const uint8_t*) = {primerStep, segundoStep,tercerStep, cuartoStep};
+
 void moveAxisRelative(const uint8_t* axisPin, int16_t value) {
-  static uint8_t nStep = 0;
+  static uint8_t nStep;
   if (value > 0) {
+    nStep = 0;
     while (value) {
       (*doStepHorario[nStep])(axisPin);
       value--;
@@ -72,7 +37,6 @@ void moveAxisRelative(const uint8_t* axisPin, int16_t value) {
   } else {
     nStep = 4;
     while (value) {
-      // doStepAntiHorario(axisPin);
       (*doStepHorario[nStep-1])(axisPin);
       value++;
       if(--nStep == 0)

@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 void MainWindow::on_xPositiveButton_clicked()
 {
     if(serial.isWritable()){
-        serial.write("x10\n");
+        serial.write("x100\n");
     }
 
 }
@@ -64,7 +64,7 @@ void MainWindow::on_xPositiveButton_clicked()
 void MainWindow::on_xNegativeButton_clicked()
 {
      if(serial.isWritable()){
-        serial.write("x-10\n");
+        serial.write("x-100\n");
     }
 }
 

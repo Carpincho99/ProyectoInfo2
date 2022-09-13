@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "../inc/allInc.h"
 
 char* remove_white_spaces(char* str) {

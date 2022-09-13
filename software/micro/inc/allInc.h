@@ -10,6 +10,7 @@
 #include <util/delay.h>
 #include <math.h>
 #include <avr/sfr_defs.h>
+#include <avr/interrupt.h>
 // #include <stdbool.h>
 
 #include "UART_utils.h"
