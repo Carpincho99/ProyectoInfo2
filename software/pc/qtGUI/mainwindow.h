@@ -20,6 +20,10 @@ private slots:
 
     void on_xNegativeButton_clicked();
 
+    void on_yNegativeButton_clicked();
+
+    void on_yPositiveButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

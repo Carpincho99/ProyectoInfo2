@@ -68,4 +68,13 @@ void MainWindow::on_xNegativeButton_clicked()
     }
 }
 
+void MainWindow::on_yPositiveButton_clicked()
+{
+
+}
+
+void MainWindow::on_yNegativeButton_clicked()
+{
+
+}
 

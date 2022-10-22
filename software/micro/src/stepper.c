@@ -1,34 +1,34 @@
 #include "../inc/allInc.h"
 
 #define msSteps 5
-void primerStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
-  PORTD |= _BV(axisPin[0]);
+void primerStep(volatile uint8_t* port, const uint8_t *axisPin){
+  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port |= _BV(axisPin[1]);
 }
 
-void segundoStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
-  PORTD |= _BV(axisPin[1]);
+void segundoStep(volatile uint8_t* port, const uint8_t *axisPin){
+  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port |= _BV(axisPin[2]);
 }
 
-void tercerStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
-  PORTD |= _BV(axisPin[2]);
+void tercerStep(volatile uint8_t* port,const uint8_t *axisPin){
+  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port |= _BV(axisPin[3]);
 }
 
-void cuartoStep(const uint8_t *axisPin){
-  PORTD &= ~_BV(axisPin[0]) || ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]);
-  PORTD |= _BV(axisPin[3]);
+void cuartoStep(volatile uint8_t* port,const uint8_t *axisPin){
+  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port |= _BV(axisPin[4]);
 }
 
-void (*doStepHorario[4]) (const uint8_t*) = {primerStep, segundoStep,tercerStep, cuartoStep};
+void (*doStepHorario[4]) (volatile uint8_t* ,const uint8_t*) = {primerStep, segundoStep,tercerStep, cuartoStep};
 
-void moveAxisRelative(const uint8_t* axisPin, int16_t value) {
+void moveAxisRelative(volatile uint8_t* port,const uint8_t* axisPin, int16_t value) {
   static uint8_t nStep;
   if (value > 0) {
     nStep = 0;
     while (value) {
-      (*doStepHorario[nStep])(axisPin);
+      (*doStepHorario[nStep])(port,axisPin);
       value--;
       if(++nStep == 4)
         nStep = 0;
@@ -37,7 +37,7 @@ void moveAxisRelative(const uint8_t* axisPin, int16_t value) {
   } else {
     nStep = 4;
     while (value) {
-      (*doStepHorario[nStep-1])(axisPin);
+      (*doStepHorario[nStep-1])(port,axisPin);
       value++;
       if(--nStep == 0)
         nStep = 4;
@@ -47,20 +47,20 @@ void moveAxisRelative(const uint8_t* axisPin, int16_t value) {
 }
 
 void execLine(uint8_t axi, int16_t value) {
- const uint8_t xAxisPin[4] = {X_IN1, X_IN2, X_IN3, X_IN4};
- const uint8_t yAxisPin[4] = {Y_IN1, Y_IN2, Y_IN3, Y_IN4};
- const uint8_t zAxisPin[4] = {Z_IN1, Z_IN2, Z_IN3, Z_IN4};
+ const uint8_t xAxisPin[5] = {PORTD, X_IN1, X_IN2, X_IN3, X_IN4};
+ const uint8_t yAxisPin[5] = {PORTD, Y_IN1, Y_IN2, Y_IN3, Y_IN4};
+ const uint8_t zAxisPin[5] = {PORTC, Z_IN1, Z_IN2, Z_IN3, Z_IN4};
 
   // Realtive motion
   switch (axi) {
     case 'X':
-      moveAxisRelative(xAxisPin, value);
+      moveAxisRelative(&PORTC, xAxisPin, value);
       break;
     case 'Y':
-      moveAxisRelative(yAxisPin, value);
+      moveAxisRelative(&PORTD, yAxisPin, value);
       break;
     case 'Z':
-      moveAxisRelative(zAxisPin, value);
+      moveAxisRelative(&PORTD, zAxisPin, value);
       break;
   }
 }
