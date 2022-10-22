@@ -18,4 +18,5 @@
 #include "gcode.h"
 #include "stepper.h"
 #include "uC_map.h"
+#include "timer1_hal.h"
 #endif

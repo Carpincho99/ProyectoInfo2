@@ -70,6 +70,11 @@ uint8_t parse(char* line, void (*execLine)(uint8_t, int16_t)) {
   if ((letter < 'A') || (letter > 'Z')) 
     return 1;  // Se esperaba una letra
 
+  if(letter == 'S'){ //Servo
+    execLine('S', 0); 
+    return 0;
+  }
+
   n++;
 
   if (line[n] != '-' && line[n] != '+' && (line[n] < '0' || line[n] > '9'))

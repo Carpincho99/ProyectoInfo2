@@ -1,8 +1,13 @@
+#include <util/delay.h>
 #include "../inc/allInc.h"
 
 int main(void) {
   SetInOut();
   UART_init();
+  pwm_init();
+  sei();
+	
+  servo_set(0,180);
 
   char line[80];
 

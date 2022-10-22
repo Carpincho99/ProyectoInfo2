@@ -50,6 +50,8 @@ void execLine(uint8_t axi, int16_t value) {
  const uint8_t xAxisPin[5] = {PORTD, X_IN1, X_IN2, X_IN3, X_IN4};
  const uint8_t yAxisPin[5] = {PORTD, Y_IN1, Y_IN2, Y_IN3, Y_IN4};
  const uint8_t zAxisPin[5] = {PORTC, Z_IN1, Z_IN2, Z_IN3, Z_IN4};
+ static uint8_t s = 0; //1 open - 0 close
+
 
   // Realtive motion
   switch (axi) {
@@ -61,6 +63,15 @@ void execLine(uint8_t axi, int16_t value) {
       break;
     case 'Z':
       moveAxisRelative(&PORTD, zAxisPin, value);
+      break;
+    case 'S':
+      if(s){
+        servo_set(0, 180); //Cerrar
+        s=0;
+      }else{
+        servo_set(180, 180); //Cerrar
+        s=1;
+      }
       break;
   }
 }
