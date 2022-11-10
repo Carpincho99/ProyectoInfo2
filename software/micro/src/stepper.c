@@ -1,23 +1,28 @@
+#include <avr/sfr_defs.h>
 #include "../inc/allInc.h"
 
 #define msSteps 5
 void primerStep(volatile uint8_t* port, const uint8_t *axisPin){
-  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port &= ~_BV(axisPin[1]);
+  *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[1]);
 }
 
 void segundoStep(volatile uint8_t* port, const uint8_t *axisPin){
-  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port &= ~_BV(axisPin[1]);
+  *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[2]);
 }
 
 void tercerStep(volatile uint8_t* port,const uint8_t *axisPin){
-  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port &= ~_BV(axisPin[1]);
+  *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[3]);
 }
 
 void cuartoStep(volatile uint8_t* port,const uint8_t *axisPin){
-  *port &= ~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]);
+  *port &= ~_BV(axisPin[1]);
+  *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[4]);
 }
 
@@ -48,7 +53,7 @@ void moveAxisRelative(volatile uint8_t* port,const uint8_t* axisPin, int16_t val
 
 void execLine(uint8_t axi, int16_t value) {
  const uint8_t xAxisPin[5] = {PORTD, X_IN1, X_IN2, X_IN3, X_IN4};
- const uint8_t yAxisPin[5] = {PORTD, Y_IN1, Y_IN2, Y_IN3, Y_IN4};
+ const uint8_t yAxisPin[5] = {PORTB, Y_IN1, Y_IN2, Y_IN3, Y_IN4};
  const uint8_t zAxisPin[5] = {PORTC, Z_IN1, Z_IN2, Z_IN3, Z_IN4};
  static uint8_t s = 0; //1 open - 0 close
 
@@ -69,7 +74,7 @@ void execLine(uint8_t axi, int16_t value) {
         servo_set(0, 180); //Cerrar
         s=0;
       }else{
-        servo_set(180, 180); //Cerrar
+        servo_set(80, 180); //Cerrar
         s=1;
       }
       break;
