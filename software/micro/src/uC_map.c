@@ -13,4 +13,10 @@ void SetInOut(void) {
   DDRC |= _BV(DDC3);
   DDRC |= _BV(DDC4);
   DDRC |= _BV(DDC5);
-}
+
+  DDRB |= _BV(DDC0);
+  DDRB |= _BV(DDC2);
+  DDRB |= _BV(DDC3);
+  DDRB |= _BV(DDC4);
+
+  }

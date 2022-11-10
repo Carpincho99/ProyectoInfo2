@@ -59,7 +59,7 @@ void execLine(uint8_t axi, int16_t value) {
       moveAxisRelative(&PORTC, xAxisPin, value);
       break;
     case 'Y':
-      moveAxisRelative(&PORTD, yAxisPin, value);
+      moveAxisRelative(&PORTB, yAxisPin, value);
       break;
     case 'Z':
       moveAxisRelative(&PORTD, zAxisPin, value);
