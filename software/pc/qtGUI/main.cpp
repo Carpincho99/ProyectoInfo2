@@ -53,28 +53,104 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
+void MainWindow::on_xNegativeButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("x-100\n");
+    }
+}
+
+
+void MainWindow::on_smallXNegativeButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("x-10\n");
+    }
+}
+void MainWindow::on_yNegativeButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("y-100\n");
+    }
+}
+
+
+void MainWindow::on_smallYNegativeButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("y-10\n");
+    }
+}
+
+void MainWindow::on_zNegativeButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("z-100\n");
+    }
+}
+
+
+void MainWindow::on_smallZNegativeButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("z-10\n");
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+
 void MainWindow::on_xPositiveButton_clicked()
 {
     if(serial.isWritable()){
         serial.write("x100\n");
     }
-
 }
 
-void MainWindow::on_xNegativeButton_clicked()
+
+void MainWindow::on_smallXPositiveButton_clicked()
 {
-     if(serial.isWritable()){
-        serial.write("x-100\n");
+    if(serial.isWritable()){
+        serial.write("x10\n");
+    }
+}
+void MainWindow::on_yPositiveButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("y100\n");
     }
 }
 
-void MainWindow::on_yPositiveButton_clicked()
-{
 
+void MainWindow::on_smallYPositiveButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("y10\n");
+    }
 }
 
-void MainWindow::on_yNegativeButton_clicked()
+void MainWindow::on_zPositiveButton_clicked()
 {
-
+    if(serial.isWritable()){
+        serial.write("z100\n");
+    }
 }
+
+
+void MainWindow::on_smallZPositiveButton_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("z10\n");
+    }
+}
+
+
+void MainWindow::on_openClose_clicked()
+{
+    if(serial.isWritable()){
+        serial.write("s\n");
+    }
+}
+
+
 
