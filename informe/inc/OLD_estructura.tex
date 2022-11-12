@@ -74,23 +74,17 @@
 
   \begin{center}
 
-    \textsc{\LARGE \@instituto}\par
-    \vspace{0.5cm}
-    \textsc{\Large \@carrera}\par
-    \vspace{1cm}
-    \includegraphics[width=0.30\textwidth]{imagenes/COPYlogo-utn.eps}\par
+    \textsc{\LARGE \@instituto}\\[0.5cm] 
+    \textsc{\Large \@carrera}\\[1cm] 
+    \includegraphics[width=0.30\textwidth]{imagenes/COPYlogo-utn.eps} \par
     \vspace{1cm}
 
-    \textsc{\Large \@catedra}\par
-    \vspace{1.5cm}
+    \textsc{\Large \@catedra}\\[1.5cm]
 
-    \hrule
-    \vspace{0.5cm}
-    {\huge\bfseries \@title}\par
-    \vspace{0.4cm}
-    \textsc{\large \@subtitledoc}
-    \vspace{0.5cm}
-    \hrule \vspace{\baselineskip}
+    \hrule\\[0.5cm]
+    {\huge\bfseries \@title}\\[0.4cm]
+    \textsc{\large \@subtitledoc}\\[0.5cm]
+    \hrule\\
 
 
   \end{center}
@@ -101,7 +95,7 @@
     \begin{minipage}[t]{.2\textwidth}
       \raggedright
       \textbf{DOCENTES} \par
-      \vspace{\baselineskip}
+      ~\\
       %\textbf{CÁTEDRA} \par
       \medskip
       \medskip
@@ -127,18 +121,19 @@
       \medskip
       %\@catedra. \par
       \medskip
-      \@curso \par
+      \@curso{} \par
       \medskip
       \medskip
       \@author \par
     \end{minipage}%
     \begin{minipage}[t]{.15\textwidth}
       \raggedright
-      \vspace{\baselineskip}
-      \vspace{\baselineskip}
+      ~\\
+      ~\\
+      ~\\
       \medskip
-      \bigskip
       % \medskip
+      \medskip
       \medskip
       \medskip
       \@legajo \par
@@ -146,11 +141,11 @@
   }
   \vfill
   \begin{center}
-    {\Large\textbf{Córdoba, \@date}} \vspace{\baselineskip}
+    {\Large\textbf{Córdoba, \@date}} \\
     %\medskip
     %\textbf{Córdoba, Argentina} \par
-    \newpage
   \end{center}
+  \newpage
 }
 
 \makeatother
