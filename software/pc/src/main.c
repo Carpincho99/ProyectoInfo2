@@ -10,12 +10,40 @@ int bitsUntilc(const char* str, char c){
   return ++i;
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
   int fd;
 
   fd = openTty(PORT);
   ttySet(fd, 115200);
   tcflush(fd, TCIOFLUSH);
+
+  if(argc > 1){
+    FILE* fdComands;
+    char fdComandsCadena[80] = {0};
+    fdComands = fopen(argv[1], "r");
+    char buf[80] = {0};
+    read(fd, &buf, 8);
+    tcdrain(fd);
+    while (1) {
+      if (feof(fdComands)) 
+        fseek(fdComands, 0, SEEK_SET);
+      if(!strncmp(buf, "OK\n", 8)){
+        printf("[MICRO] %s", buf);
+        tcdrain(fd);
+        if(fgets(fdComandsCadena, 78, fdComands)==NULL)
+          continue;
+        fdComandsCadena[79] = '\n';
+        printf("%s", fdComandsCadena);
+        write(fd, fdComandsCadena, bitsUntilc(fdComandsCadena, '\n'));
+        tcdrain(fd);
+        sleep(2);
+      }else{
+        printf("[ERROR]");
+        return EXIT_FAILURE;
+      }
+    }
+    fclose(fdComands);
+  }
 
   for (;;) {
     char buf[80] = {0};
