@@ -144,7 +144,7 @@
      <string>+z</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="smalXPositiveButton">
+   <widget class="QPushButton" name="smallXPositiveButton">
     <property name="geometry">
      <rect>
       <x>290</x>

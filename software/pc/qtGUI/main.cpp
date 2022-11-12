@@ -114,6 +114,8 @@ void MainWindow::on_smallXPositiveButton_clicked()
         serial.write("x10\n");
     }
 }
+
+
 void MainWindow::on_yPositiveButton_clicked()
 {
     if(serial.isWritable()){
