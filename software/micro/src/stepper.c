@@ -6,24 +6,28 @@ void primerStep(volatile uint8_t* port, const uint8_t *axisPin){
   *port &= ~_BV(axisPin[1]);
   *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[1]);
+  *port |= _BV(axisPin[2]);
 }
 
 void segundoStep(volatile uint8_t* port, const uint8_t *axisPin){
   *port &= ~_BV(axisPin[1]);
   *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[2]);
+  *port |= _BV(axisPin[3]);
 }
 
 void tercerStep(volatile uint8_t* port,const uint8_t *axisPin){
   *port &= ~_BV(axisPin[1]);
   *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[3]);
+  *port |= _BV(axisPin[4]);
 }
 
 void cuartoStep(volatile uint8_t* port,const uint8_t *axisPin){
   *port &= ~_BV(axisPin[1]);
   *port &= (~_BV(axisPin[1]) || ~_BV(axisPin[2]) || ~_BV(axisPin[3]) || ~_BV(axisPin[4]));
   *port |= _BV(axisPin[4]);
+  *port |= _BV(axisPin[1]);
 }
 
 void (*doStepHorario[4]) (volatile uint8_t* ,const uint8_t*) = {primerStep, segundoStep,tercerStep, cuartoStep};
