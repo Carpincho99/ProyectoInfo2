@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
         printf("%s", fdComandsCadena);
         write(fd, fdComandsCadena, bitsUntilc(fdComandsCadena, '\n'));
         tcdrain(fd);
-        sleep(2);
+        sleep(3);
       }else{
         printf("[ERROR]");
         return EXIT_FAILURE;
