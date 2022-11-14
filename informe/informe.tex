@@ -1,6 +1,8 @@
 \input{inc/estructura.tex}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage[section]{placeins}
+\usepackage{subfig}
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{titlesec}
 \usepackage{xcolor}
@@ -11,22 +13,22 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
 }
 
 \lstset{style=mystyle}
@@ -40,53 +42,68 @@
 
 \instituto{Universidad Tecnológica Nacional\\Facultad Regional Córdoba}
 \carrera{Ingeniería Electrónica}
-\title{Brazo Robotico tri axial}
-\subtitledoc{Trabajo Practico Grupo N°2}
-\catedra{Informatica II}
-\professor{Herencia,\\ Martinez}
+\title{Brazo Robótico tri axial}
+\subtitledoc{Trabajo Práctico Grupo N°2}
+\catedra{Informática II}
+\professor{Herencia Juan José,\\ Martinez José Luis}
 \curso{2R2}
-\author{Giorgis Ezequiel,}
-\legajo{91661, }
-\footerauthor{Giorgis, }
-\footerlegajo{91661, }
-\footercatedra{Informatica II}
+\author{De Robles Agustin\par Giorgis Ezequiel\par Luna Joaquín}
+\legajo{80499\\91661\\ 75934}
+\footerauthor{De Robles, Giorgis, Luna}
+\footerlegajo{80499, 91661, 72934}
+\footercatedra{Informática II}
 \date{\today}
 
 \begin{document} %Maximo 10 paginas
-  \maketitle
-  \tableofcontents
-  \newpage
-  \setlength{\jot}{10pt}
+\maketitle
+\tableofcontents
+\newpage
 
-  \section{Resumen} % Max 200 palabras
-  \section{Introducción} % 1 a 2 paginas
-  \section{Desarrollo}
+\section{Resumen} % Max 200 palabras
+\section{Introducción} % 1 a 2 paginas
+  \input{introduccion.tex}
   \subsection{Descripción general} % Fotos del equipo
-  \subsection{Hardware} % Diagrama de bloques?
-  \subsection{Software Microcontrolador}
-  \subsubsection{Make}
-  \subsubsection{Directivas de preprocesador y librerias}
-  \subsubsection{Función Main}
-  \subsubsection{UART}
-  \subsubsection{Gcode}
-  \subsubsection{Control de motores}
-  \subsubsection{Control de servo}
-  \subsection{Software PC}
-  \subsubsection{Make}
-  \subsubsection{GUI}
-  \subsubsection{Directivas de preprocesador y librerias}
-  \subsubsection{Función Main}
-  \lstinputlisting[language=c]{../software/pc/src/main.c}
-  \subsubsection{Comunicación Serial}
-  \section{Conclusiones}
+    \input{descripciónGral.tex}
+\section{Hardware} % Diagrama de bloques?
+\input{hardware.tex}
+\section{Proceso de compilado y flash}
+\input{compilado.tex}
+\section{Software Microcontrolador}
+\subsection{Función Main}
+\input{microMain.tex}
+\lstinputlisting[language=c]{../software/micro/src/main.c}
+\subsection{UART}\label{UART}
+\input{microSerie.tex}
+\lstinputlisting[language=c, firstline=3, lastline=17]{../software/micro/src/UART_utils.c}
+\subsection{Funciones parse y execLine}
+\input{parse.tex}
+\subsection{Control de motores y servo motores}
+\input{motorParServo.tex}
+\lstinputlisting[language=c, firstline=5, lastline=9]{../software/micro/src/stepper.c}
+\section{Software PC}
+\subsection{Comunicación serial}
+\input{pcSerial.tex}
+\lstinputlisting[language=c, firstline=38, lastline=49]{../software/pc/src/ttyConfig.c}
+\subsection{Función Main}
+\input{pcMain.tex}
+\lstinputlisting[language=c, firstline=48, lastline=58]{../software/pc/src/COPYmain.c}
+\subsection{GUI}
+\input{gui.tex}
+%\lstinputlisting[language=c]{../software/pc/src/main.c}
+\section{Conclusiones}
+La construcción final del brazo robótico demuestra de por sí la capacidad 
+del quienes subscriben de programar softwares de bajo nivel necesarios para las industrias de hoy en 
+día. Además, gracias al paradigma de programación estructurada por el que se opto, se logro
+crear un código, no solo flexible, sino también reutilizable y adaptable según
+la envergadura y necesidades de cada proceso industrial. 
 
-  \nocite{atmega328Datasheet}
-  \nocite{bjarneC++}
-  \nocite{deitel}
-  \nocite{make}
-  \nocite{CProgramingMicro}
-  \nocite{ControlPerifericosPaina}
-  \bibliography{inc/bibliografia}{}
-  \bibliographystyle{plain}
+\nocite{atmega328Datasheet}
+\nocite{bjarneC++}
+\nocite{deitel}
+\nocite{make}
+\nocite{CProgramingMicro}
+\nocite{ControlPerifericosPaina}
+\bibliography{inc/bibliografia}{}
+\bibliographystyle{plain}
 
 \end{document}

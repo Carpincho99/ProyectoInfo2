@@ -1,0 +1,12 @@
+Dentro del código se incluyen todos los archivos de cabecera dentro de un único llamado allInc.h. 
+Este último contiene, entre otras cosas, las funciones SetInOut, pwm init y las relacionadas a la Uart.
+\par
+Con las funciones SetInOut se inicializan los pines del arduino, con UART init 
+se configura la velocidad para la uart y la comunicación serial y con pwm init 
+se inicializa el pwm y se setea el valor mínimo $(0)$ y máximo $(180)$ del 
+servomotor para la amplitud de la apertura de la pinza.
+En el bucle infinito, la función UART gets lee el puerto de serie hasta que 
+haya un salto de línea, almacenando el dato en la variable line para luego 
+traducirlo con la función parse en comandos de movimiento, devolviendo error u 
+ok según corresponda.
+

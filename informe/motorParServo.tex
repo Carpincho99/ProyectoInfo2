@@ -1,0 +1,6 @@
+Para conseguir esta secuencia se define, primeramente, un arreglo de tipo uint8 t (unsigned char) constante donde serán almacenados los pines y el puerto correspondiente a cada entrada del driver
+Estos serán pasados, junto al número de pasos a ejecutar, por referencia y copia respectivamente, a la función moveAxisRelative. Esta define un contador para indicar el paso actual, por lo que varía entre 0 y 3. Por último, se hace uso de un arreglo de funciones, doStepHorario, para llamar a la función del paso que corresponda. Función que es la encargada de apagar y energizar las bobinas del motor por medio del registro de 8 bits correspondiente al puerto, y con el uso de los operadores a nivel de bit y sentencias correspondientes para apagar y encender respectivamente.
+\par
+Para la apertura y cierre del servomotor, se hizo uso de los timers del propio Atmega328 para generar una señal de pulso modulado (pwm). De este modo, 
+haciendo variar el duty cycle de la señal, conseguimos que el servo motor se posición según lo deseado. 
+
